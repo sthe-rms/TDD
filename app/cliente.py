@@ -1,2 +1,8 @@
-def calcular_pontos_compra_cliente_padrao(valor_da_compra):
-    return valor_da_compra
+class Cliente:
+    def __init__(self, nome,tipo="padrao", pontos=0):
+        self.nome = nome
+        self.tipo = tipo
+        self.pontos = pontos
+
+    def __repr__(self):
+        return f"Cliente(nome={self.nome}, tipo={self.tipo}, pontos={self.pontos})"
