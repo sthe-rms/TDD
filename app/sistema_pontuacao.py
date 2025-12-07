@@ -10,3 +10,7 @@ class SistemaPontuacao:
             return valor_compra * 2.0
         
         return 0.0
+    
+    def atualizar_pontos_cliente(self, cliente: Cliente, pontos: float) -> None:
+        pontos_ganhos = self.calcular_pontos(cliente, pontos)
+        cliente.pontos += pontos
