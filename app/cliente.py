@@ -1,5 +1,5 @@
 class Cliente:
-    def __init__(self, nome,tipo="padrao", pontos=0):
+    def __init__(self, nome,tipo, pontos=0):
         self.nome = nome
         self.tipo = tipo
         self.pontos = pontos
