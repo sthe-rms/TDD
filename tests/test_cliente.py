@@ -33,7 +33,7 @@ def test_calcular_pontos_cliente_vip():
     assert pontos_esperados == pontos_calculados
 
 def test_acumular_pontos_varias_compras():
-    cliente = Cliente(nome="Lucas", tipo="premium")
+    cliente = Cliente(nome="Lucas", tipo="padrão")
     sistema = SistemaPontuacao()
 
     compras = [100.00, 100.00]
@@ -44,3 +44,23 @@ def test_acumular_pontos_varias_compras():
         pontos_esperados += sistema.calcular_pontos(cliente, valor_compra)
 
     assert cliente.pontos == pontos_esperados
+
+def test_consultar_pontos_cliente_existente():
+    cliente = Cliente(nome="Mariana", tipo="vip")
+    sistema = SistemaPontuacao()
+
+    compras = [200.00, 150.00]
+    pontos_esperados = 0.0
+
+    for valor_compra in compras:
+        sistema.atualizar_pontos_cliente(cliente, valor_compra)
+        pontos_esperados += sistema.calcular_pontos(cliente, valor_compra)
+
+    pontos_consultados = sistema.consultar_pontos(cliente)
+
+    assert pontos_consultados == pontos_esperados
+
+#def test_resgatar_pontos_para_desconto():
+
+
+
