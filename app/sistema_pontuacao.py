@@ -11,6 +11,6 @@ class SistemaPontuacao:
         
         return 0.0
     
-    def atualizar_pontos_cliente(self, cliente: Cliente, pontos: float) -> None:
-        pontos_ganhos = self.calcular_pontos(cliente, pontos)
-        cliente.pontos += pontos
+    def atualizar_pontos_cliente(self, cliente: Cliente, valor_compra: float) -> float:
+        pontos_ganhos = self.calcular_pontos(cliente, valor_compra)
+        cliente.pontos += pontos_ganhos

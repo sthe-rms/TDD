@@ -37,10 +37,10 @@ def test_acumular_pontos_varias_compras():
     sistema = SistemaPontuacao()
 
     compras = [100.00, 100.00]
-    pontos_esperados = 300
+    pontos_esperados = 0.0
 
-    for compra in compras:
-        sistema.atualizar_pontos_cliente(cliente, compra)
-        pontos_esperados += sistema.calcular_pontos(cliente, compra)
+    for valor_compra in compras:
+        sistema.atualizar_pontos_cliente(cliente, valor_compra)
+        pontos_esperados += sistema.calcular_pontos(cliente, valor_compra)
 
     assert cliente.pontos == pontos_esperados
