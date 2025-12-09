@@ -71,6 +71,7 @@ def test_resgatar_pontos_para_desconto():
     desconto_obtido = sistema.resgatar_pontos(cliente, resgatePontos)
     
     assert desconto_esperado == desconto_obtido
+    assert cliente.pontos == 2000
 
 def test_impedir_resgate_com_saldo_insuficiente():
     cliente = Cliente(nome="Paulo", tipo="padrao", pontos=1000)
@@ -94,6 +95,16 @@ def test_resgatar_todos_os_pontos_disponiveis():
 
     assert desconto_esperado == desconto_obtido
     assert cliente.pontos == 0
+
+def test_nao_gerar_pontos_para_valor_zero():
+    cliente = Cliente(nome="Rafael", tipo="premium", pontos=0)
+    sistema = SistemaPontuacao()
+    valor_compra = 0.00
+    pontos_esperados = 0
+
+    pontos_calculados = sistema.calcular_pontos(cliente, valor_compra)
+
+    assert pontos_esperados == pontos_calculados
 
 
 
