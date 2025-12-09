@@ -72,6 +72,17 @@ def test_resgatar_pontos_para_desconto():
     
     assert desconto_esperado == desconto_obtido
 
+def test_impedir_resgate_com_saldo_insuficiente():
+    cliente = Cliente(nome="Paulo", tipo="padrao", pontos=1000)
+    sistema = SistemaPontuacao()
+
+    resgatePontos = 1500
+
+    with pytest.raises(ValueError) as excinfo:
+        sistema.resgatar_pontos(cliente, resgatePontos)
+
+    assert str(excinfo.value) == "Saldo insuficiente para o resgate."
+
 
 
 
