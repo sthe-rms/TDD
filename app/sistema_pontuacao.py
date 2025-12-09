@@ -1,4 +1,5 @@
 from .cliente import Cliente
+from app import cliente
 
 class SistemaPontuacao:
     def calcular_pontos(self, cliente: Cliente, valor_compra: float) -> float:
@@ -20,4 +21,12 @@ class SistemaPontuacao:
     def consultar_pontos(self, cliente: Cliente) -> float:
         return cliente.pontos
     
+    def resgatar_pontos(self, cliente: Cliente, pontos_resgatar: float) -> float:
+        if pontos_resgatar > cliente.pontos:
+            raise ValueError("Saldo insuficiente para o resgate.")
+        
+        cliente.pontos -= pontos_resgatar
+        valor_desconto = pontos_resgatar * 0.05
+        return valor_desconto
+
     

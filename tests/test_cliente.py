@@ -1,9 +1,10 @@
 from app.cliente import Cliente
 from app.sistema_pontuacao import SistemaPontuacao
+import pytest
 
 
 def test_calcular_pontos_compra_cliente_padrao():
-    cliente_padrao = Cliente(nome="Sthe", tipo="padrao")
+    cliente_padrao = Cliente(nome="Sthe", tipo="padrao", pontos=0)
     sistema = SistemaPontuacao()
     valor_compra = 100.00
     pontos_esperados = 100
@@ -13,7 +14,7 @@ def test_calcular_pontos_compra_cliente_padrao():
     assert pontos_esperados == pontos_calculados
 
 def test_calcular_pontos_cliente_premium():
-    cliente_premium = Cliente(nome="Paulo", tipo="premium")
+    cliente_premium = Cliente(nome="Paulo", tipo="premium", pontos = 0)
     sistema = SistemaPontuacao()
     valor_compra = 100.00
     pontos_esperados = 150
@@ -23,7 +24,7 @@ def test_calcular_pontos_cliente_premium():
     assert pontos_esperados == pontos_calculados
 
 def test_calcular_pontos_cliente_vip():
-    cliente_vip = Cliente(nome="Ana", tipo="vip")
+    cliente_vip = Cliente(nome="Ana", tipo="vip", pontos=0)
     sistema = SistemaPontuacao()
     valor_compra = 100.00
     pontos_esperados = 200
@@ -33,7 +34,7 @@ def test_calcular_pontos_cliente_vip():
     assert pontos_esperados == pontos_calculados
 
 def test_acumular_pontos_varias_compras():
-    cliente = Cliente(nome="Lucas", tipo="padrão")
+    cliente = Cliente(nome="Lucas", tipo="padrão", pontos=0)
     sistema = SistemaPontuacao()
 
     compras = [100.00, 100.00]
@@ -46,7 +47,7 @@ def test_acumular_pontos_varias_compras():
     assert cliente.pontos == pontos_esperados
 
 def test_consultar_pontos_cliente_existente():
-    cliente = Cliente(nome="Mariana", tipo="vip")
+    cliente = Cliente(nome="Mariana", tipo="vip", pontos=0)
     sistema = SistemaPontuacao()
 
     compras = [200.00, 150.00]
@@ -60,7 +61,17 @@ def test_consultar_pontos_cliente_existente():
 
     assert pontos_consultados == pontos_esperados
 
-#def test_resgatar_pontos_para_desconto():
+def test_resgatar_pontos_para_desconto():
+    cliente = Cliente(nome="Carla", tipo="premium", pontos=5000)
+    sistema = SistemaPontuacao()
+
+    resgatePontos = 3000
+    desconto_esperado = 150.0
+
+    desconto_obtido = sistema.resgatar_pontos(cliente, resgatePontos)
+    
+    assert desconto_esperado == desconto_obtido
+
 
 
 
