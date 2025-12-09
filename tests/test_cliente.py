@@ -106,5 +106,15 @@ def test_nao_gerar_pontos_para_valor_zero():
 
     assert pontos_esperados == pontos_calculados
 
+def test_gerar_pontos_para_valores_decimais():
+    cliente = Cliente(nome="Bianca", tipo="padrao", pontos=0)
+    sistema = SistemaPontuacao()
+    valor_compra = 99.01
+    pontos_esperados = 99.01
+    pontos_calculados = sistema.calcular_pontos(cliente, valor_compra)
+
+    assert pontos_esperados == pontos_calculados
+
+
 
 
