@@ -83,6 +83,17 @@ def test_impedir_resgate_com_saldo_insuficiente():
 
     assert str(excinfo.value) == "Saldo insuficiente para o resgate."
 
+def test_resgatar_todos_os_pontos_disponiveis():
+    cliente = Cliente(nome="Fernanda", tipo="vip", pontos=2500)
+    sistema = SistemaPontuacao()
+
+    resgatePontos = 2500
+    desconto_esperado = 125.0
+
+    desconto_obtido = sistema.resgatar_pontos(cliente, resgatePontos)
+
+    assert desconto_esperado == desconto_obtido
+    assert cliente.pontos == 0
 
 
 
