@@ -1,5 +1,6 @@
 from app.cliente import Cliente
 from app.sistema_pontuacao import SistemaPontuacao
+from app.gerenciador_cliente import GerenciadorCliente
 import pytest
 
 
@@ -128,5 +129,13 @@ def test_nao_permitir_pontos_negativos():
     assert cliente.pontos == saldo_negativo_esperado
 
     assert str(excinfo.value) == "O saldo de pontos não pode ser negativo."
+
+def test_cliente_inexsitente_lanca_excecao():
+    gerenciador = GerenciadorCliente()
+
+    with pytest.raises(ValueError, match="Cliente inexistente"):
+        gerenciador.buscar_cliente_por_nome("Astrogildo")
+
+
 
 

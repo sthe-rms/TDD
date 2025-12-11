@@ -1,5 +1,4 @@
 from .cliente import Cliente
-from app import cliente
 
 class SistemaPontuacao:
     def calcular_pontos(self, cliente: Cliente, valor_compra: float) -> float:
