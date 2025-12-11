@@ -28,5 +28,13 @@ class SistemaPontuacao:
         cliente.pontos -= pontos_resgatar
         valor_desconto = pontos_resgatar * 0.05
         return valor_desconto
+    
+    def pontos_negativos(self, cliente: Cliente, pontos_resgatar: float) -> None:
+        if pontos_resgatar < 0:
+            raise ValueError("O valor de pontos para resgate deve ser positivo.")
+        
+    def quantidade_pontos_minima(self, cliente: Cliente) -> float:
+        if cliente.pontos < 0:
+            raise ValueError("O saldo de pontos não pode ser negativo.")
 
     

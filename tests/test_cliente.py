@@ -115,6 +115,18 @@ def test_gerar_pontos_para_valores_decimais():
 
     assert pontos_esperados == pontos_calculados
 
+def test_nao_permitir_pontos_negativos():
+    cliente = Cliente(nome="Gustavo", tipo="vip", pontos = 0)
+    sistema = SistemaPontuacao()
 
+    cliente.pontos = -1
+    saldo_negativo_esperado = -1
+
+    with pytest.raises(ValueError) as excinfo:
+        sistema.quantidade_pontos_minima(cliente)
+    
+    assert cliente.pontos == saldo_negativo_esperado
+
+    assert str(excinfo.value) == "O saldo de pontos não pode ser negativo."
 
 
