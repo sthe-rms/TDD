@@ -136,6 +136,17 @@ def test_cliente_inexsitente_lanca_excecao():
     with pytest.raises(ValueError, match="Cliente inexistente"):
         gerenciador.buscar_cliente_por_nome("Astrogildo")
 
+def test_registrar_novo_cliente_com_pontos_iniciais():
+    gerenciador = GerenciadorCliente()
+    cliente_novo = Cliente(nome="Beatriz", tipo="padrao", pontos=50)
+
+    gerenciador.adicionar_cliente(cliente_novo)
+    cliente_registrado = gerenciador.buscar_cliente_por_nome("Beatriz")
+
+    assert cliente_registrado.nome == "Beatriz"
+    assert cliente_registrado.tipo == "padrao"
+    assert cliente_registrado.pontos == 50
+
 
 
 
