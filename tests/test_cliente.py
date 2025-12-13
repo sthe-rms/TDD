@@ -183,6 +183,20 @@ def test_registrar_varios_clientes_em_lista():
     assert cliente_registrado1.nome == "Fabio"
     assert cliente_registrado2.nome == "Gabriela"
 
+def test_calcular_pontos_lista_clientes():
+    gerenciador = GerenciadorCliente()
 
+    cliente1 = Cliente(nome="Hugo", tipo="padrao", pontos=300)
+    cliente2 = Cliente(nome="Isabela", tipo="vip", pontos=700)
+    cliente3 = Cliente(nome="Joana", tipo="premium", pontos=500)
+
+    gerenciador.adicionar_cliente(cliente1)
+    gerenciador.adicionar_cliente(cliente2)
+    gerenciador.adicionar_cliente(cliente3)
+
+    total_pontos_esperados = cliente1.pontos + cliente2.pontos + cliente3.pontos
+    total_pontos_calculados = gerenciador.calcular_pontos(cliente1, cliente2, cliente3)
+
+    assert total_pontos_esperados == total_pontos_calculados
 
 

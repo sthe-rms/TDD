@@ -14,5 +14,9 @@ class GerenciadorCliente:
         
         raise ValueError("Cliente inexistente")
     
-    
+    def calcular_pontos(self, *clientes: Cliente) -> float:
+        total_pontos = 0
+        for cliente in clientes:
+            total_pontos += cliente.pontos
+        return total_pontos
         
