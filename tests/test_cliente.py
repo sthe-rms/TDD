@@ -159,6 +159,16 @@ def test_aplicar_bonus_promocional_em_compra():
 
     assert pontos_esperados == pontos_calculados
 
+def test_expirar_pontos_antigos_apos_periofodo():
+    cliente = Cliente(nome="Elena", tipo="vip", pontos=3000)
+    sistema = SistemaPontuacao()
+
+    meses_passados = 12
+
+    sistema.test_expirar_pontos(cliente, meses_passados)
+
+    assert cliente.pontos == 0
+
 
 
 

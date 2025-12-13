@@ -40,3 +40,7 @@ class SistemaPontuacao:
         pontos_base = self.calcular_pontos(cliente, valor_compra)
         pontos_totais = pontos_base + (pontos_base * bonus)
         return pontos_totais
+    
+    def test_expirar_pontos(self, cliente: Cliente, meses: int) -> None:
+        if meses >= 12:
+            cliente.pontos = 0
