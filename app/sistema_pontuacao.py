@@ -41,6 +41,18 @@ class SistemaPontuacao:
         pontos_totais = pontos_base + (pontos_base * bonus)
         return pontos_totais
     
-    def test_expirar_pontos(self, cliente: Cliente, meses: int) -> None:
+    def expirar_pontos(self, cliente: Cliente, meses: int) -> None:
         if meses >= 12:
+            cliente.pontos = 0 
+
+    # metodo para calcular pontos da lista de clientes
+    def calcular_pontos_lista_clientes(self, clientes, valor_compra):
+        for cliente in clientes:
+            self.atualizar_pontos_cliente(cliente, valor_compra)
+
+    # metodo pra verificar se os pontos esta expirados
+    def expirar_pontos(self, cliente, meses):
+        if meses >= 2:
             cliente.pontos = 0
+        elif meses >= 1:
+            cliente.pontos *= 0.9

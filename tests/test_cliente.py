@@ -35,7 +35,7 @@ def test_calcular_pontos_cliente_vip():
     assert pontos_esperados == pontos_calculados
 
 def test_acumular_pontos_varias_compras():
-    cliente = Cliente(nome="Lucas", tipo="padrão", pontos=0)
+    cliente = Cliente(nome="Lucas", tipo="padrao", pontos=0)
     sistema = SistemaPontuacao()
 
     compras = [100.00, 100.00]
@@ -159,13 +159,13 @@ def test_aplicar_bonus_promocional_em_compra():
 
     assert pontos_esperados == pontos_calculados
 
-def test_expirar_pontos_antigos_apos_periofodo():
+def test_expirar_pontos_antigos_apos_periododo():
     cliente = Cliente(nome="Elena", tipo="vip", pontos=3000)
     sistema = SistemaPontuacao()
 
     meses_passados = 12
 
-    sistema.test_expirar_pontos(cliente, meses_passados)
+    sistema.expirar_pontos(cliente, meses_passados)
 
     assert cliente.pontos == 0
 
@@ -183,6 +183,178 @@ def test_registrar_varios_clientes_em_lista():
     assert cliente_registrado1.nome == "Fabio"
     assert cliente_registrado2.nome == "Gabriela"
 
+#calcular pontos para todos os cliente de uma lista
+
+def test_calcular_pontos_lista_clientes():
+    sistema = SistemaPontuacao()
+
+    clientes = [
+        Cliente( nome = "ana", tipo = "padrao", pontos = 0),
+        Cliente( nome = "theo", tipo = "premium", pontos = 0),
+        Cliente( nome = "lara", tipo = "vip", pontos = 0)
+    ]
+
+    valor_compra = 100.00
+
+    sistema.calcular_pontos_lista_clientes(clientes, valor_compra)
+    assert clientes[0].pontos ==100.00
+    assert clientes[1].pontos == 150.00
+    assert clientes[2].pontos == 200.00
+
+#filtrar cliente comsaldo de pontos superior ao valor determinado
+def test_filtrar_clientes_com_pontos_acima_de_limite():
+    gerenciador = GerenciadorCliente()
+
+    cliente1 = Cliente( nome = "ana", tipo = "padrao", pontos = 100)
+    cliente2 = Cliente( nome = "theo", tipo = "premium", pontos = 500)
+    cliente3 = Cliente( nome = "lara", tipo = "vip", pontos = 1000)
+
+    gerenciador.adicionar_cliente(cliente1)
+    gerenciador.adicionar_cliente(cliente2)
+    gerenciador.adicionar_cliente(cliente3)
+
+    limite = 400
+
+    clientes_filtrados = gerenciador.filtrar_clientes_com_pontos_acima_de_limite(limite)
+
+    assert len(clientes_filtrados) == 2
+    assert cliente2 in clientes_filtrados
+    assert cliente3 in clientes_filtrados
+
+# ordenar clientes pelo total de pontos acumulados
+def test_ordenar_clientes_por_pontos():
+    gerenciador = GerenciadorCliente()
+
+    cliente1 = Cliente( nome = "ana", tipo = "padrao", pontos = 300)
+    cliente2 = Cliente( nome = "theo", tipo = "premium", pontos = 100)
+    cliente3 = Cliente( nome = "lara", tipo = "vip", pontos = 500)
+
+    gerenciador.adicionar_cliente(cliente1)
+    gerenciador.adicionar_cliente(cliente2)
+    gerenciador.adicionar_cliente(cliente3)
+
+    clientes_ordenados = gerenciador.ordenar_clientes_por_pontos()
+
+    assert clientes_ordenados[0].nome == "lara"
+    assert clientes_ordenados[1].nome == "ana"
+    assert clientes_ordenados[2].nome == "theo"
 
 
+# remover cliente que tem saldo de pontos = 0
+def test_remover_clientes_com_saldo_zero():
+    gerenciador = GerenciadorCliente()
+
+    cliente1 = Cliente( nome = "ana", tipo = "padrao", pontos =0)
+    cliente2 = Cliente( nome = "theo", tipo = "premium", pontos = 100)
+    cliente3 = Cliente( nome = "lara", tipo = "vip", pontos = 0)
+    cliente4 = Cliente( nome = "lia", tipo = "padrao", pontos = 50)
+    cliente5 = Cliente( nome = "ney", tipo = "premium", pontos = 0)
+   
+
+    gerenciador.adicionar_cliente(cliente1)
+    gerenciador.adicionar_cliente(cliente2)
+    gerenciador.adicionar_cliente(cliente3)
+    gerenciador.adicionar_cliente(cliente4)
+    gerenciador.adicionar_cliente(cliente5)
+    
+
+    gerenciador.remover_clientes_com_saldo_zero()
+
+    clientes_restantes = gerenciador.clientes
+
+    assert len(clientes_restantes) == 2
+    assert cliente2 in clientes_restantes
+    assert cliente4 in clientes_restantes
+    assert cliente1 not in clientes_restantes
+    assert cliente3 not in clientes_restantes
+    assert cliente5 not in clientes_restantes
+
+# persquisar clentes pelo nome
+def teste_buscar_cliente_por_nome():
+
+    gerenciador = GerenciadorCliente()
+
+    cliente1 = Cliente( nome = "ana", tipo = "padrao", pontos = 300)
+    cliente2 = Cliente( nome = "theo", tipo = "premium", pontos = 100)
+    cliente3 = Cliente( nome = "lara", tipo = "vip", pontos = 500)
+
+    gerenciador.adicionar_cliente(cliente1)
+    gerenciador.adicionar_cliente(cliente2)
+    gerenciador.adicionar_cliente(cliente3)
+
+    cliente_encontrado = gerenciador.buscar_cliente_por_nome("theo")
+
+    assert cliente_encontrado == cliente2
+    assert cliente_encontrado.nome == "theo"
+    assert cliente_encontrado.tipo == "premium"
+    assert cliente_encontrado.pontos == 100
+
+   
+# calcular o total de pontos de todos da lista
+
+def test_somar_total_pontos_lista():
+
+    gerenciador = GerenciadorCliente()
+
+    cliente1 = Cliente( nome = "ana", tipo = "padrao", pontos = 300)
+    cliente2 = Cliente( nome = "theo", tipo = "premium", pontos = 100)
+    cliente3 = Cliente( nome = "lara", tipo = "vip", pontos = 500)
+
+    gerenciador.adicionar_cliente(cliente1)
+    gerenciador.adicionar_cliente(cliente2)
+    gerenciador.adicionar_cliente(cliente3)
+
+    total_pontos = gerenciador.somar_total_pontos_lista()
+    assert total_pontos == 300 + 100 + 500
+
+#ranking dos cliente com pontuaçao decrescente
+
+def test_ranking_clientes_por_pontos():
+
+    gerenciador = GerenciadorCliente()
+
+    cliente1 = Cliente( nome = "ana", tipo = "padrao", pontos =300)
+    cliente2 = Cliente( nome = "theo", tipo = "premium", pontos = 100)
+    cliente3 = Cliente( nome = "lara", tipo = "vip", pontos = 500)
+    cliente4 = Cliente( nome = "lia", tipo = "padrao", pontos = 50)
+    cliente5 = Cliente( nome = "ney", tipo = "premium", pontos = 1000)
+ 
+    gerenciador.adicionar_cliente(cliente1)
+    gerenciador.adicionar_cliente(cliente2)
+    gerenciador.adicionar_cliente(cliente3)
+    gerenciador.adicionar_cliente(cliente4)
+    gerenciador.adicionar_cliente(cliente5)
+    
+
+    ranking = gerenciador.ranking_clientes_por_pontos()
+ 
+    assert ranking[0].nome == "ney"
+    assert ranking[1].nome == "lara"
+    assert ranking[2].nome == "ana"
+    assert ranking[3].nome == "theo"
+    assert ranking[4].nome == "lia"
+
+# pontos expiram 10% apos 1 mes
+def test_expirar_pontos_apos_um_mes():
+    sistema = SistemaPontuacao()
+    cliente = Cliente(nome="ney", tipo="premium", pontos=1000)
+
+    sistema.expirar_pontos(cliente, 1)
+
+    pontos_esperados = 900
+
+    assert cliente.pontos == pontos_esperados
+
+# todos pontos expiram apos 2 mes
+def test_expirar_todos_os_pontos_apos_dois_meses():
+    sistema = SistemaPontuacao()
+    cliente = Cliente(nome="ney", tipo="premium", pontos=1000)
+
+    meses_passados = 2
+
+    sistema.expirar_pontos(cliente, meses_passados)
+
+    assert cliente.pontos == 0
+
+    
 
