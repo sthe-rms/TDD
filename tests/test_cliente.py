@@ -169,6 +169,20 @@ def test_expirar_pontos_antigos_apos_periofodo():
 
     assert cliente.pontos == 0
 
+def test_registrar_varios_clientes_em_lista():
+    gerenciador = GerenciadorCliente()
+    cliente1 = Cliente(nome="Fabio", tipo="padrao", pontos=100)
+    cliente2 = Cliente(nome="Gabriela", tipo="premium", pontos=200)
+
+    gerenciador.adicionar_cliente(cliente1)
+    gerenciador.adicionar_cliente(cliente2)
+
+    cliente_registrado1 = gerenciador.buscar_cliente_por_nome("Fabio")
+    cliente_registrado2 = gerenciador.buscar_cliente_por_nome("Gabriela")
+
+    assert cliente_registrado1.nome == "Fabio"
+    assert cliente_registrado2.nome == "Gabriela"
+
 
 
 
