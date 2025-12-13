@@ -13,4 +13,6 @@ class GerenciadorCliente:
                 return cliente
         
         raise ValueError("Cliente inexistente")
+    
+    
         

@@ -36,4 +36,7 @@ class SistemaPontuacao:
         if cliente.pontos < 0:
             raise ValueError("O saldo de pontos não pode ser negativo.")
 
-    
+    def calcular_pontos_com_bonus(self, cliente: Cliente, valor_compra: float, bonus: float) -> float:
+        pontos_base = self.calcular_pontos(cliente, valor_compra)
+        pontos_totais = pontos_base + (pontos_base * bonus)
+        return pontos_totais

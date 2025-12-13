@@ -147,6 +147,18 @@ def test_registrar_novo_cliente_com_pontos_iniciais():
     assert cliente_registrado.tipo == "padrao"
     assert cliente_registrado.pontos == 50
 
+def test_aplicar_bonus_promocional_em_compra():
+    cliente = Cliente(nome="Diego", tipo="premium", pontos=0)
+    sistema = SistemaPontuacao()
+
+    valor_compra = 200.00
+    bonus_percentual = 0.20
+    pontos_esperados = 200 * 1.5 + (200 * 1.5 * bonus_percentual)
+
+    pontos_calculados = sistema.calcular_pontos_com_bonus(cliente, valor_compra, bonus_percentual)
+
+    assert pontos_esperados == pontos_calculados
+
 
 
 
