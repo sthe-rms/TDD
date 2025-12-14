@@ -52,7 +52,7 @@ class SistemaPontuacao:
 
     # metodo pra verificar se os pontos esta expirados
     def expirar_pontos(self, cliente, meses):
-        if meses >= 2:
+        if meses >= 12:
             cliente.pontos = 0
         elif meses >= 1:
             cliente.pontos *= 0.9

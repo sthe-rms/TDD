@@ -270,7 +270,7 @@ def test_remover_clientes_com_saldo_zero():
     assert cliente5 not in clientes_restantes
 
 # persquisar clentes pelo nome
-def teste_buscar_cliente_por_nome():
+def test_buscar_cliente_por_nome():
 
     gerenciador = GerenciadorCliente()
 
@@ -350,7 +350,7 @@ def test_expirar_todos_os_pontos_apos_dois_meses():
     sistema = SistemaPontuacao()
     cliente = Cliente(nome="ney", tipo="premium", pontos=1000)
 
-    meses_passados = 2
+    meses_passados = 12
 
     sistema.expirar_pontos(cliente, meses_passados)
 
